@@ -3,11 +3,12 @@ import styles from './TaskItem.module.css';
 
 import { CheckIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 
-const TaskItem = ({ task, onDeleteTask }) => {
+const TaskItem = ({ task, onDeleteTask, onToggleTaskStatus }) => {
     const [isChecked, setIsChecked] = useState(task.completed);
 
     function handleCheckboxChange() {
         setIsChecked(prevValue => !prevValue);
+        onToggleTaskStatus(task.id)
     }
 
     return (
