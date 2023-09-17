@@ -1,15 +1,15 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-const notify = () => toast.success('Task Successfully Added');
+const notify = () => toast.success('New Task Successfully Added');
 
-const CustomForm = ({ onAddTask }) => {
+const CustomForm = ({ onAddTask, tasks }) => {
     const [newTask, setNewTask] = useState("");
 
     function handleFormSubmit(e) {
         e.preventDefault();
         onAddTask({
             userId: 1,
-            id: Date.now(),
+            id: tasks.length + 1,
             title: newTask,
             completed: false
         });
