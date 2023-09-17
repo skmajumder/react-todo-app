@@ -3,12 +3,14 @@ import CustomForm from "./components/CustomForm/CustomForm"
 import { useEffect, useState } from "react";
 import TaskList from "./components/TaskList/TaskList";
 import EditForm from "./components/EditForm/EditForm";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 const taskAddNotify = () => toast.success('New Task Successfully Added');
 const taskDeleteNotify = () => toast('Task Delete Successfully', { icon: '🗑️', });
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useLocalStorage('react-todo.tasks', []);
+  
   const [isEditing, setIsEditing] = useState(false);
   const [previousFocusEl, setPreviousFocusEl] = useState(null);
   const [editedTask, setEditedTask] = useState(null);
