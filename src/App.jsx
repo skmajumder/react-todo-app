@@ -10,6 +10,8 @@ const taskDeleteNotify = () => toast('Task Delete Successfully', { icon: 'ðŸ—‘ï¸
 function App() {
   const [tasks, setTasks] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
+  const [previousFocusEl, setPreviousFocusEl] = useState(null);
+  const [editedTask, setEditedTask] = useState(null);
 
   /** 
    * *Fetch Todos data from jsonplaceholder 
@@ -101,11 +103,23 @@ function App() {
   }
 
   const updateTask = (task) => {
-    setTasks(prevTasks => prevTasks.map(t => (
+    setTasks(prevState => prevState.map(t => (
       t.id === task.id
-        ? { ...t, title: task.title }
+        ? { ...t, name: task.name }
         : t
     )))
+    closeEditMode();
+  }
+
+  const closeEditMode = () => {
+    setIsEditing(false);
+    previousFocusEl.focus();
+  }
+
+  const enterEditMode = (task) => {
+    setEditedTask(task);
+    setIsEditing(true);
+    setPreviousFocusEl(document.activeElement);
   }
 
   return (
@@ -114,10 +128,14 @@ function App() {
         <h1>My Task List</h1>
       </header>
       {
-        isEditing && <EditForm />
+        isEditing && <EditForm
+          editedTask={editedTask}
+          updateTask={updateTask}
+          closeEditMode={closeEditMode}
+        />
       }
       <CustomForm onAddTask={addTask} tasks={tasks} />
-      {tasks && <TaskList tasks={tasks} onDeleteTask={deleteTask} onToggleTaskStatus={toggleTaskStatus} />}
+      {tasks && <TaskList tasks={tasks} onDeleteTask={deleteTask} onToggleTaskStatus={toggleTaskStatus} enterEditMode={enterEditMode} />}
       <Toaster />
     </div>
   )
