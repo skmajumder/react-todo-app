@@ -28,7 +28,7 @@ Before you begin, make sure you have the following software installed:
 1. Clone the repository:
 
    ```sh
-   https://github.com/skmajumder/react-todo-app.git
+   git clone https://github.com/skmajumder/react-todo-app.git
    cd react-todo-app
 
    ```
@@ -46,16 +46,17 @@ npm run dev
 ```
 
 This will start the development server, and you can access the app in your web browser at
-http://localhost:5173
+http://localhost:portnumber
+example: http://localhost:3000
 
 ### API Integration
 
 The app is integrated with the JSONPlaceholder API to fetch and save tasks. The API endpoints for retrieving, adding, updating (marking as complete), and deleting tasks are used within the application. The following API endpoints are used:
 
-. GET /todos: Retrieve the list of tasks.
-. POST /todos: Add a new task.
-. PUT /todos/:id: Update the completion status of a task.
-. DELETE /todos/:id: Delete a task.
+- GET /todos: Retrieve the list of tasks.
+- POST /todos: Add a new task.
+- PUT /todos/:id: Update the completion status of a task.
+- DELETE /todos/:id: Delete a task.
 
 ### Interacting with the JSONPlaceholder API
 
@@ -63,7 +64,7 @@ The app is integrated with the JSONPlaceholder API to fetch and save tasks. The 
 
 **Adding a Task:** To add a new task, use the text input field and the "Add" button. The new task will be sent to the API and added to the list.
 
-***Important:*** resource will not be really updated on the server but it will be faked as if.
+**_Important:_** In _https://jsonplaceholder.typicode.com/todos_ resource will not be really updated on the server but it will be faked as if.
 
 ### Features
 
