@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import styles from './TaskItem.module.css';
 
-import { CheckIcon } from '@heroicons/react/24/outline';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
-import { TrashIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ task, onDeleteTask }) => {
     const [isChecked, setIsChecked] = useState(task.completed);
 
     function handleCheckboxChange() {
@@ -32,10 +30,10 @@ const TaskItem = ({ task }) => {
                 </label>
             </div>
             <div className={styles["task-group"]}>
-                <button className='btn' aria-label={`Update ${task.title} Task`}>
+                <button className='btn' aria-label={`Update ${task.title}`}>
                     <PencilSquareIcon width={24} height={24} />
                 </button>
-                <button className={`btn ${styles.delete}`} aria-label={`Delete ${task.title} Task`}>
+                <button className={`btn ${styles.delete}`} onClick={() => onDeleteTask(task.id)} aria-label={`Delete ${task.title}`}>
                     <TrashIcon width={24} height={24} />
                 </button>
             </div>

@@ -1,7 +1,10 @@
-import { Toaster } from "react-hot-toast"
+import toast, { Toaster } from "react-hot-toast"
 import CustomForm from "./components/CustomForm/CustomForm"
 import { useEffect, useState } from "react";
 import TaskList from "./components/TaskList/TaskList";
+
+const taskAddNotify = () => toast.success('New Task Successfully Added');
+const taskDeleteNotify = () => toast.success('Task Delete Successfully');
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -37,6 +40,15 @@ function App() {
      */
 
     setTasks(prevTasks => [...prevTasks, newTask]);
+    taskAddNotify();
+  }
+
+  /** 
+   * * Delete tasks from the list of tasks
+   * */
+  function deleteTask(id) {
+    setTasks(prevTasks => prevTasks.filter(t => t.id !== id))
+    taskDeleteNotify();
   }
 
   return (
@@ -45,7 +57,7 @@ function App() {
         <h1>My Task List</h1>
       </header>
       <CustomForm onAddTask={addTask} tasks={tasks} />
-      {tasks && <TaskList tasks={tasks} />}
+      {tasks && <TaskList tasks={tasks} onDeleteTask={deleteTask} />}
       <Toaster />
     </div>
   )

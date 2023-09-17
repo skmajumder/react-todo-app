@@ -1,6 +1,4 @@
 import { useState } from "react";
-import toast from "react-hot-toast";
-const notify = () => toast.success('New Task Successfully Added');
 
 const CustomForm = ({ onAddTask, tasks }) => {
     const [newTask, setNewTask] = useState("");
@@ -13,7 +11,6 @@ const CustomForm = ({ onAddTask, tasks }) => {
             title: newTask,
             completed: false
         });
-        notify();
         setNewTask('');
     }
 
