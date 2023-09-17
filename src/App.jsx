@@ -2,12 +2,14 @@ import toast, { Toaster } from "react-hot-toast"
 import CustomForm from "./components/CustomForm/CustomForm"
 import { useEffect, useState } from "react";
 import TaskList from "./components/TaskList/TaskList";
+import EditForm from "./components/EditForm/EditForm";
 
 const taskAddNotify = () => toast.success('New Task Successfully Added');
 const taskDeleteNotify = () => toast('Task Delete Successfully', { icon: '🗑️', });
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [isEditing, setIsEditing] = useState(false);
 
   /** 
    * *Fetch Todos data from jsonplaceholder 
@@ -98,11 +100,22 @@ function App() {
       .then((json) => json)
   }
 
+  const updateTask = (task) => {
+    setTasks(prevTasks => prevTasks.map(t => (
+      t.id === task.id
+        ? { ...t, title: task.title }
+        : t
+    )))
+  }
+
   return (
     <div className="container">
       <header>
         <h1>My Task List</h1>
       </header>
+      {
+        isEditing && <EditForm />
+      }
       <CustomForm onAddTask={addTask} tasks={tasks} />
       {tasks && <TaskList tasks={tasks} onDeleteTask={deleteTask} onToggleTaskStatus={toggleTaskStatus} />}
       <Toaster />
