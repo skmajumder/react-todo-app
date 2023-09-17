@@ -8,7 +8,7 @@ const TaskItem = ({ task, onDeleteTask, onToggleTaskStatus }) => {
 
     function handleCheckboxChange() {
         setIsChecked(prevValue => !prevValue);
-        onToggleTaskStatus(task.id)
+        onToggleTaskStatus(task.id, !isChecked)
     }
 
     return (

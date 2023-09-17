@@ -35,12 +35,22 @@ function App() {
    * */
 
   function addTask(newTask) {
-    /**
-     * TODO: Add a task: POST https://jsonplaceholder.typicode.com/todos
-     */
-
     setTasks(prevTasks => [...prevTasks, newTask]);
     taskAddNotify();
+
+    /**
+     * !Important: resource will not be really updated on the server but it will be faked as if.
+     */
+    fetch('https://jsonplaceholder.typicode.com/todos', {
+      method: 'POST',
+      body: JSON.stringify({ ...newTask }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+
   }
 
   /** 
@@ -62,12 +72,30 @@ function App() {
   /** 
    * * Toggle task status
    * */
-  function toggleTaskStatus(id) {
+  function toggleTaskStatus(id, currentStatus) {
+
     setTasks(
       prevTasks => prevTasks.map(
-        task => task.id === id ? { ...task, completed: !task.completed } : task
+        task => task.id === id ?
+          { ...task, completed: !task.completed }
+          : task
       )
     )
+
+    /*
+      !Important: resource will not be really updated on the server but it will be faked as if. 
+     */
+    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        completed: currentStatus
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => json)
   }
 
   return (
