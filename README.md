@@ -50,7 +50,20 @@ http://localhost:5173
 
 ### API Integration
 
-The app is integrated with the JSONPlaceholder API to fetch and save tasks. The API endpoints for retrieving, adding, updating (marking as complete), and deleting tasks are used within the application.
+The app is integrated with the JSONPlaceholder API to fetch and save tasks. The API endpoints for retrieving, adding, updating (marking as complete), and deleting tasks are used within the application. The following API endpoints are used:
+
+. GET /todos: Retrieve the list of tasks.
+. POST /todos: Add a new task.
+. PUT /todos/:id: Update the completion status of a task.
+. DELETE /todos/:id: Delete a task.
+
+### Interacting with the JSONPlaceholder API
+
+**Fetching Tasks:** Tasks are fetched from the API when the application loads. You can view the fetched tasks in the To-Do List.
+
+**Adding a Task:** To add a new task, use the text input field and the "Add" button. The new task will be sent to the API and added to the list.
+
+***Important:*** resource will not be really updated on the server but it will be faked as if.
 
 ### Features
 
@@ -68,7 +81,7 @@ The app is styled to make it visually appealing and user-friendly. CSS styles ha
 
 1. Hero Icon: [Flaticon.com](https://heroicons.com/)
 1. Code Editor: [VS Code](https://code.visualstudio.com/)
-1. React Hot Toast: [VS Code](https://react-hot-toast.com/)
+1. React Hot Toast: [React Hot Toast](https://react-hot-toast.com/)
 
 ### Contributing
 
