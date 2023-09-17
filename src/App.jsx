@@ -4,13 +4,16 @@ import { useEffect, useState } from "react";
 import TaskList from "./components/TaskList/TaskList";
 import EditForm from "./components/EditForm/EditForm";
 import useLocalStorage from "./hooks/useLocalStorage";
+import { addToLocal } from "./utilities/localStorage";
 
 const taskAddNotify = () => toast.success('New Task Successfully Added');
 const taskDeleteNotify = () => toast('Task Delete Successfully', { icon: '🗑️', });
 
 function App() {
-  const [tasks, setTasks] = useLocalStorage('react-todo.tasks', []);
-  
+
+  const [tasks, setTasks] = useState([]);
+  const [dataFetched, setDataFetched] = useState(false);
+
   const [isEditing, setIsEditing] = useState(false);
   const [previousFocusEl, setPreviousFocusEl] = useState(null);
   const [editedTask, setEditedTask] = useState(null);
@@ -20,20 +23,24 @@ function App() {
    * */
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/todos');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+    if (!dataFetched) {
+      // eslint-disable-next-line no-inner-declarations
+      async function fetchData() {
+        try {
+          const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const data = await response.json();
+          setTasks(data);
+          setDataFetched(true);
+        } catch (error) {
+          console.error('Error fetching data:', error);
         }
-        const data = await response.json();
-        setTasks(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
       }
-    }
 
-    fetchData();
+      fetchData();
+    }
   }, []);
 
   /** 
